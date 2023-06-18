@@ -1,17 +1,14 @@
 package com.example.arkzeroconfigurator
 
 
-import android.media.Image
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
-import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
@@ -22,11 +19,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -93,7 +87,7 @@ fun AppDisplay(
         'x' -> 'e'
         else -> 'o'
     }
-    val mainCode: Array<Char> = arrayOf(trimCode, colorCode, wheelCode, interiorCode)
+    // val mainCode: Array<Char> = arrayOf(trimCode, colorCode, wheelCode, interiorCode)
 
 
     // Price, name and Image -------------------------------------------------------
@@ -117,7 +111,7 @@ fun AppDisplay(
     val interiorPrice: Int = when(interiorCode){
         'c', 'g' -> 0
         'r', 't', 'w' -> 2200
-        'c' -> 4200
+        'a' -> 4200
         'b', 'd' -> 5200
         else -> -1
     }
@@ -439,6 +433,97 @@ fun AppDisplay(
             .padding(5.dp)
     )
 
+    val wheel0 = when(wheelCode){
+        'a' -> R.drawable.wheel1
+        else -> R.drawable.wheel1alt
+    }
+
+    val wheel1 = when(wheelCode){
+        'b' -> R.drawable.wheel2
+        else -> R.drawable.wheel2alt
+    }
+
+    val wheel2 = when(wheelCode){
+        'c' -> R.drawable.wheel3
+        else -> R.drawable.wheel3alt
+    }
+
+    val wheel3 = when(wheelCode){
+        'd' -> R.drawable.wheel4
+        else -> R.drawable.wheel4alt
+    }
+
+    val wheel4 = when(wheelCode){
+        'e' -> R.drawable.wheel5
+        else -> R.drawable.wheel5alt
+    }
+
+    @Composable
+    fun wheel0() = Image(
+        painter = painterResource(id = wheel0),
+        contentDescription = "",
+        modifier = Modifier
+            .clickable {
+
+            }
+            .height(160.dp)
+            .fillMaxWidth()
+            .padding(5.dp)
+    )
+
+    @Composable
+    fun wheel1() = Image(
+        painter = painterResource(id = wheel1),
+        contentDescription = "",
+        modifier = Modifier
+            .clickable {
+
+            }
+            .height(160.dp)
+            .fillMaxWidth()
+            .padding(5.dp)
+    )
+
+    @Composable
+    fun wheel2() = Image(
+        painter = painterResource(id = wheel2),
+        contentDescription = "",
+        modifier = Modifier
+            .clickable {
+
+            }
+            .height(160.dp)
+            .fillMaxWidth()
+            .padding(5.dp)
+    )
+
+    @Composable
+    fun wheel3() = Image(
+        painter = painterResource(id = wheel3),
+        contentDescription = "",
+        modifier = Modifier
+            .clickable {
+
+            }
+            .height(160.dp)
+            .fillMaxWidth()
+            .padding(5.dp)
+    )
+
+    @Composable
+    fun wheel4() = Image(
+        painter = painterResource(id = wheel4),
+        contentDescription = "",
+        modifier = Modifier
+            .clickable {
+
+            }
+            .height(160.dp)
+            .fillMaxWidth()
+            .padding(5.dp)
+    )
+
+
     @Composable
     fun spacerS() = Image(
         painter = painterResource(id = R.drawable.spacers),
@@ -454,9 +539,15 @@ fun AppDisplay(
     )
 
     @Composable
-    fun imgFunc(id: Int){
+    fun paintFunc(id: Int){
         val paintList = listOf(paint0(), paint1(), spacerS(), paint2(), paint3(), paint4(), paint5(), paint6(), paint7(), spacerS(), paint8(), paint9(), spacerS(), paint10(), spacerL())
         paintList[id]
+    }
+
+    @Composable
+    fun wheelFunc(id: Int){
+        val wheelList = listOf(wheel0(), wheel1(), wheel2(), wheel3(), wheel4(), spacerL())
+        wheelList[id]
     }
 
     @Composable
@@ -469,7 +560,22 @@ fun AppDisplay(
             horizontalAlignment = Alignment.CenterHorizontally
         ){
             items(15){
-                idx -> imgFunc(id = idx)
+                idx -> paintFunc(id = idx)
+            }
+        }
+    }
+
+    @Composable
+    fun wheelScroller(
+        modifier: Modifier = Modifier.fillMaxWidth()
+    ){
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ){
+            items(6){
+                    idx -> wheelFunc(id = idx)
             }
         }
     }
@@ -478,6 +584,7 @@ fun AppDisplay(
     @Composable
     fun mainScroller() = when(iconId){
         1 -> paintScroller(Modifier.fillMaxWidth())
+        2 -> wheelScroller(Modifier.fillMaxWidth())
         else -> {}
     }
 

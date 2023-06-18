@@ -31,11 +31,6 @@ class AppViewModel : ViewModel() {
         paintId = id
     }
 
-    var wheelId by mutableStateOf('m')
-    fun updateWheel(id: Char){
-        wheelId = id
-    }
-
     var interiorId by mutableStateOf('b')
     fun updateInterior(id: Char){
         interiorId  = id
