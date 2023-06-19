@@ -21,7 +21,7 @@ class AppViewModel : ViewModel() {
     }
 
 
-    var trimId by mutableStateOf('z')
+    var trimId by mutableStateOf('x')
     fun updateTrim(id: Char){
         trimId = id
     }

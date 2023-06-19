@@ -1,6 +1,9 @@
 package com.example.arkzeroconfigurator
 
 
+import androidx.compose.animation.*
+import androidx.compose.animation.core.keyframes
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -12,9 +15,7 @@ import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,53 +25,52 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.arkzeroconfigurator.ui.theme.ArkzeroConfiguratorTheme
 import com.example.arkzeroconfigurator.ui.theme.rratFontFamily
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalAnimationApi::class)
 @Composable
 fun AppDisplay(
     appViewModel: AppViewModel = viewModel()
-){
+) {
     val appUiState by appViewModel.uiState.collectAsState()
 
     val header = painterResource(id = R.drawable.header)
     val sHeader = painterResource(id = R.drawable.headershort)
 
 
-
-
     // icons ----------------------------------------------------------------------------------
     val iconId = appViewModel.iconId
-    val icon0: Int = when(iconId){
+    val icon0: Int = when (iconId) {
         0 -> R.drawable.b_trim
         else -> R.drawable.w_trim
     }
 
-    val icon1: Int = when(iconId){
+    val icon1: Int = when (iconId) {
         1 -> R.drawable.b_paint
         else -> R.drawable.w_paint
     }
 
-    val icon2: Int = when(iconId){
+    val icon2: Int = when (iconId) {
         2 -> R.drawable.b_wheels
         else -> R.drawable.w_wheels
     }
 
-    val icon3: Int = when(iconId){
+    val icon3: Int = when (iconId) {
         3 -> R.drawable.b_interior
         else -> R.drawable.w_interior
     }
 
-    val icon4: Int = when(iconId){
+    val icon4: Int = when (iconId) {
         4 -> R.drawable.b_packages
         else -> R.drawable.w_packages
     }
 
-    val icon5: Int = when(iconId){
+    val icon5: Int = when (iconId) {
         5 -> R.drawable.b_summary
         else -> R.drawable.w_summary
     }
@@ -79,7 +79,7 @@ fun AppDisplay(
     val trimCode = appViewModel.trimId
     val colorCode = appViewModel.paintId
     val interiorCode = appViewModel.interiorId
-    val wheelCode = when(trimCode){
+    val wheelCode = when (trimCode) {
         'c' -> 'a'
         'p' -> 'b'
         'g' -> 'c'
@@ -91,16 +91,16 @@ fun AppDisplay(
 
 
     // Price, name and Image -------------------------------------------------------
-    val trimPrice: Int = when(trimCode){
-        'c' -> 72500
-        'p' -> 79500
-        'g' -> 92500
-        'z' -> 126500
-        'x' -> 165500
+    val trimPrice: Int = when (trimCode) {
+        'c' -> 82500
+        'p' -> 89500
+        'g' -> 102500
+        'z' -> 136500
+        'x' -> 185500
         else -> -1
     }
 
-    val colorPrice: Int = when(colorCode){
+    val colorPrice: Int = when (colorCode) {
         'w', 'j' -> 0
         's', 'k', 'm', 'o', 'g', 'b' -> 1100
         'a', 'r' -> 2200
@@ -108,7 +108,7 @@ fun AppDisplay(
         else -> -1
     }
 
-    val interiorPrice: Int = when(interiorCode){
+    val interiorPrice: Int = when (interiorCode) {
         'c', 'g' -> 0
         'r', 't', 'w' -> 2200
         'a' -> 4200
@@ -118,7 +118,7 @@ fun AppDisplay(
 
     val price: Int = trimPrice + colorPrice + interiorPrice
 
-    val trimName: String = when(trimCode){
+    val trimName: String = when (trimCode) {
         'c' -> "Core"
         'p' -> "Progressive"
         'g' -> "GT Pro"
@@ -131,7 +131,7 @@ fun AppDisplay(
     val imgCode: String = String(imgCodeArr)
     //val imgCode: String = "pab",
 
-    val img1: Int = when(imgCode){
+    val img1: Int = when (imgCode) {
 
         // Core
         "caa" -> R.drawable.caa1
@@ -202,7 +202,7 @@ fun AppDisplay(
     }
 
 
-    val img2: Int = when(imgCode){
+    val img2: Int = when (imgCode) {
 
         // Core
         "caa" -> R.drawable.caa2
@@ -273,7 +273,7 @@ fun AppDisplay(
     }
 
     // Interior 1
-    val img3: Int = when(interiorCode){
+    val img3: Int = when (interiorCode) {
         'c' -> R.drawable.cloth1
         'b' -> R.drawable.blue1
         'g' -> R.drawable.check1
@@ -286,7 +286,7 @@ fun AppDisplay(
     }
 
     // Interior 2
-    val img4: Int = when(interiorCode){
+    val img4: Int = when (interiorCode) {
         'c' -> R.drawable.cloth2
         'b' -> R.drawable.blue2
         'g' -> R.drawable.check2
@@ -300,6 +300,9 @@ fun AppDisplay(
 
     val imgGal = arrayOf(img1, img2, img3, img4)
 
+
+    // PAINT -----------------------------------------------------------------------------------------------
+
     @Composable
     fun paint0() = Image(
         painter = painterResource(id = R.drawable.purewhite),
@@ -312,6 +315,7 @@ fun AppDisplay(
             .fillMaxWidth()
             .padding(5.dp)
     )
+
     @Composable
     fun paint1() = Image(
         painter = painterResource(id = R.drawable.jetblack),
@@ -324,6 +328,7 @@ fun AppDisplay(
             .fillMaxWidth()
             .padding(5.dp)
     )
+
     @Composable
     fun paint2() = Image(
         painter = painterResource(id = R.drawable.knightssilver),
@@ -336,6 +341,7 @@ fun AppDisplay(
             .fillMaxWidth()
             .padding(5.dp)
     )
+
     @Composable
     fun paint3() = Image(
         painter = painterResource(id = R.drawable.stormgray),
@@ -348,6 +354,7 @@ fun AppDisplay(
             .fillMaxWidth()
             .padding(5.dp)
     )
+
     @Composable
     fun paint4() = Image(
         painter = painterResource(id = R.drawable.mysticred),
@@ -360,6 +367,7 @@ fun AppDisplay(
             .fillMaxWidth()
             .padding(5.dp)
     )
+
     @Composable
     fun paint5() = Image(
         painter = painterResource(id = R.drawable.orientteal),
@@ -372,6 +380,7 @@ fun AppDisplay(
             .fillMaxWidth()
             .padding(5.dp)
     )
+
     @Composable
     fun paint6() = Image(
         painter = painterResource(id = R.drawable.supersonicblue),
@@ -384,6 +393,7 @@ fun AppDisplay(
             .fillMaxWidth()
             .padding(5.dp)
     )
+
     @Composable
     fun paint7() = Image(
         painter = painterResource(id = R.drawable.clearsky),
@@ -396,6 +406,7 @@ fun AppDisplay(
             .fillMaxWidth()
             .padding(5.dp)
     )
+
     @Composable
     fun paint8() = Image(
         painter = painterResource(id = R.drawable.armetallic),
@@ -408,6 +419,7 @@ fun AppDisplay(
             .fillMaxWidth()
             .padding(5.dp)
     )
+
     @Composable
     fun paint9() = Image(
         painter = painterResource(id = R.drawable.remetallic),
@@ -420,6 +432,7 @@ fun AppDisplay(
             .fillMaxWidth()
             .padding(5.dp)
     )
+
     @Composable
     fun paint10() = Image(
         painter = painterResource(id = R.drawable.alchemistsblue),
@@ -433,95 +446,386 @@ fun AppDisplay(
             .padding(5.dp)
     )
 
-    val wheel0 = when(wheelCode){
+
+    // WHEEL -----------------------------------------------------------------------------------------
+
+
+    val wheel0 = when (wheelCode) {
         'a' -> R.drawable.wheel1
         else -> R.drawable.wheel1alt
     }
 
-    val wheel1 = when(wheelCode){
+    val wheel1 = when (wheelCode) {
         'b' -> R.drawable.wheel2
         else -> R.drawable.wheel2alt
     }
 
-    val wheel2 = when(wheelCode){
+    val wheel2 = when (wheelCode) {
         'c' -> R.drawable.wheel3
         else -> R.drawable.wheel3alt
     }
 
-    val wheel3 = when(wheelCode){
+    val wheel3 = when (wheelCode) {
         'd' -> R.drawable.wheel4
         else -> R.drawable.wheel4alt
     }
 
-    val wheel4 = when(wheelCode){
+    val wheel4 = when (wheelCode) {
         'e' -> R.drawable.wheel5
         else -> R.drawable.wheel5alt
     }
 
-    @Composable
-    fun wheel0() = Image(
-        painter = painterResource(id = wheel0),
-        contentDescription = "",
-        modifier = Modifier
-            .clickable {
+    var wheelExpand0 by remember { mutableStateOf(false) }
+    var wheelExpand1 by remember { mutableStateOf(false) }
+    var wheelExpand2 by remember { mutableStateOf(false) }
+    var wheelExpand3 by remember { mutableStateOf(false) }
+    var wheelExpand4 by remember { mutableStateOf(false) }
 
-            }
-            .height(160.dp)
-            .fillMaxWidth()
-            .padding(5.dp)
-    )
 
     @Composable
-    fun wheel1() = Image(
-        painter = painterResource(id = wheel1),
-        contentDescription = "",
-        modifier = Modifier
-            .clickable {
+    fun wheel0a() = when (wheelExpand0) {
+    false ->
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.height(160.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
 
-            }
-            .height(160.dp)
-            .fillMaxWidth()
-            .padding(5.dp)
-    )
+        ) {
+            Image(
+                painter = painterResource(id = wheel0),
+                contentDescription = "",
+                modifier = Modifier
+                    .clickable {
+                    }
+                    .height(160.dp)
+                    .padding(5.dp)
+                    .width(300.dp)
+
+
+            )
+            //Spacer(modifier = Modifier.width(2.dp))
+            Image(
+                painter = painterResource(id = R.drawable.expandbtn),
+                contentDescription = "",
+                modifier = Modifier
+                    .clickable {
+                        wheelExpand0 = !wheelExpand0
+                    }
+                    .height(160.dp)
+                    .width(70.dp)
+                    .padding(5.dp)
+
+            )
+        }
+
+    true ->
+        Image(
+            painter = painterResource(id = R.drawable.wheel1ex),
+            contentDescription = "",
+            modifier = Modifier
+                .clickable {
+                    wheelExpand0 = !wheelExpand0
+                }
+                .height(500.dp)
+                .fillMaxWidth()
+                .padding(5.dp)
+        )
+
+    }
 
     @Composable
-    fun wheel2() = Image(
-        painter = painterResource(id = wheel2),
-        contentDescription = "",
-        modifier = Modifier
-            .clickable {
+    fun wheel0() = AnimatedContent(
+        targetState = wheelExpand0,
+        transitionSpec = {
+            fadeIn(animationSpec = tween(150, 150)) with
+                    fadeOut(animationSpec = tween(150)) using
+                    SizeTransform { initialSize, targetSize ->
+                            keyframes {
+                                // Shrink vertically first.
+                                IntSize(initialSize.width, targetSize.height) at 150
+                                durationMillis = 300
+                            }
 
-            }
-            .height(160.dp)
-            .fillMaxWidth()
-            .padding(5.dp)
-    )
-
-    @Composable
-    fun wheel3() = Image(
-        painter = painterResource(id = wheel3),
-        contentDescription = "",
-        modifier = Modifier
-            .clickable {
-
-            }
-            .height(160.dp)
-            .fillMaxWidth()
-            .padding(5.dp)
-    )
+                    }
+        }
+    ) {
+        wheel0a()
+    }
 
     @Composable
-    fun wheel4() = Image(
-        painter = painterResource(id = wheel4),
-        contentDescription = "",
-        modifier = Modifier
-            .clickable {
+    fun wheel1a() = when(wheelExpand1) {
+        false ->
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.height(160.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
 
+            ) {
+                Image(
+                    painter = painterResource(id = wheel1),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .clickable {
+                        }
+                        .height(160.dp)
+                        .padding(5.dp)
+                        .width(300.dp)
+
+
+                )
+                //Spacer(modifier = Modifier.width(2.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.expandbtn),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .clickable {
+                            wheelExpand1 = !wheelExpand1
+                        }
+                        .height(160.dp)
+                        .width(70.dp)
+                        .padding(5.dp)
+
+                )
             }
-            .height(160.dp)
-            .fillMaxWidth()
-            .padding(5.dp)
-    )
+
+        true->
+            Image(
+                painter = painterResource(id = R.drawable.wheel2ex),
+                contentDescription = "",
+                modifier = Modifier
+                    .clickable {
+                        wheelExpand1 = !wheelExpand1
+                    }
+                    .height(500.dp)
+                    .fillMaxWidth()
+                    .padding(5.dp)
+            )
+    }
+
+    @Composable
+    fun wheel1() = AnimatedContent(
+        targetState = wheelExpand1,
+        transitionSpec = {
+            fadeIn(animationSpec = tween(150, 150)) with
+                    fadeOut(animationSpec = tween(150)) using
+                    SizeTransform { initialSize, targetSize ->
+                            keyframes {
+                                // Shrink vertically first.
+                                IntSize(initialSize.width, targetSize.height) at 150
+                                durationMillis = 300
+                            }
+                    }
+        }
+    ) {
+        wheel1a()
+    }
+
+    @Composable
+    fun wheel2a() = when(wheelExpand2) {
+        false ->
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.height(160.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+
+            ) {
+                Image(
+                    painter = painterResource(id = wheel2),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .clickable {
+                        }
+                        .height(160.dp)
+                        .padding(5.dp)
+                        .width(300.dp)
+
+
+                )
+                //Spacer(modifier = Modifier.width(2.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.expandbtn),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .clickable {
+                            wheelExpand2 = !wheelExpand2
+                        }
+                        .height(160.dp)
+                        .width(70.dp)
+                        .padding(5.dp)
+
+                )
+            }
+
+        true ->
+            Image(
+            painter = painterResource(id = R.drawable.wheel3ex),
+            contentDescription = "",
+            modifier = Modifier
+                .clickable {
+                    wheelExpand2 = !wheelExpand2
+                }
+                .height(500.dp)
+                .fillMaxWidth()
+                .padding(5.dp)
+            )
+    }
+
+    @Composable
+    fun wheel2() = AnimatedContent(
+        targetState = wheelExpand2,
+        transitionSpec = {
+            fadeIn(animationSpec = tween(150, 150)) with
+                    fadeOut(animationSpec = tween(150)) using
+                    SizeTransform { initialSize, targetSize ->
+                            keyframes {
+                                // Shrink vertically first.
+                                IntSize(initialSize.width, targetSize.height) at 150
+                                durationMillis = 300
+                            }
+                    }
+        }
+    ) {
+        wheel2a()
+    }
+
+    @Composable
+    fun wheel3a() = when(wheelExpand3){
+        false ->
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.height(160.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+
+            ) {
+                Image(
+                    painter = painterResource(id = wheel3),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .clickable {
+                        }
+                        .height(160.dp)
+                        .padding(5.dp)
+                        .width(300.dp)
+
+
+                )
+                //Spacer(modifier = Modifier.width(2.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.expandbtn),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .clickable {
+                            wheelExpand3 = !wheelExpand3
+                        }
+                        .height(160.dp)
+                        .width(70.dp)
+                        .padding(5.dp)
+
+                )
+            }
+        true ->
+            Image(
+                painter = painterResource(id = R.drawable.wheel4ex),
+                contentDescription = "",
+                modifier = Modifier
+                    .clickable {
+                        wheelExpand3 = !wheelExpand3
+                    }
+                    .height(500.dp)
+                    .fillMaxWidth()
+                    .padding(5.dp)
+            )
+    }
+
+    @Composable
+    fun wheel3() = AnimatedContent(
+        targetState = wheelExpand3,
+        transitionSpec = {
+            fadeIn(animationSpec = tween(150, 150)) with
+                    fadeOut(animationSpec = tween(150)) using
+                    SizeTransform { initialSize, targetSize ->
+                            keyframes {
+                                // Shrink vertically first.
+                                IntSize(initialSize.width, targetSize.height) at 150
+                                durationMillis = 300
+                            }
+                    }
+        }
+    ) {
+        wheel3a()
+    }
+
+    @Composable
+    fun wheel4a() = when(wheelExpand4){
+        false ->
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.height(160.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+
+            ) {
+                Image(
+                    painter = painterResource(id = wheel4),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .clickable {
+                        }
+                        .height(160.dp)
+                        .padding(5.dp)
+                        .width(300.dp)
+
+
+                )
+                //Spacer(modifier = Modifier.width(2.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.expandbtn),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .clickable {
+                            wheelExpand4 = !wheelExpand4
+                        }
+                        .height(160.dp)
+                        .width(70.dp)
+                        .padding(5.dp)
+
+                )
+            }
+        true ->
+            Image(
+                painter = painterResource(id = R.drawable.wheel5ex),
+                contentDescription = "",
+                modifier = Modifier
+                    .clickable {
+                        wheelExpand4 = !wheelExpand4
+                    }
+                    .height(500.dp)
+                    .fillMaxWidth()
+                    .padding(5.dp)
+            )
+    }
+
+    @Composable
+    fun wheel4() = AnimatedContent(
+        targetState = wheelExpand4,
+        transitionSpec = {
+            fadeIn(animationSpec = tween(150, 150)) with
+                    fadeOut(animationSpec = tween(150)) using
+                    SizeTransform { initialSize, targetSize ->
+                        keyframes {
+                            // Shrink vertically first.
+                            IntSize(initialSize.width, targetSize.height) at 150
+                            durationMillis = 300
+                        }
+                    }
+        }
+    ) {
+        wheel4a()
+    }
 
 
     @Composable
@@ -591,7 +895,15 @@ fun AppDisplay(
 
 
 
-    // APP LAYOUT ---------------------------------------------------------
+
+
+
+
+
+
+
+    // APP LAYOUT -------------------------------------------------------------------------------------
+
 
     Column(
         modifier = Modifier,
