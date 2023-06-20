@@ -111,7 +111,7 @@ fun AppDisplay(
     val interiorPrice: Int = when (interiorCode) {
         'c', 'g' -> 0
         'r', 't', 'w' -> 2200
-        'a' -> 4200
+        'a' -> 6200
         'b', 'd' -> 5200
         else -> -1
     }
@@ -300,6 +300,424 @@ fun AppDisplay(
 
     val imgGal = arrayOf(img1, img2, img3, img4)
 
+    // TRIM -------------------------------------------------------------------------------------------------
+
+
+    val trim0 = when (trimCode) {
+        'c' -> R.drawable.trimcorealt
+        else -> R.drawable.trimcore
+    }
+
+    val trim1 = when (trimCode) {
+        'p' -> R.drawable.trimprogalt
+        else -> R.drawable.trimprog
+    }
+
+    val trim2 = when (trimCode) {
+        'g' -> R.drawable.trimgtproalt
+        else -> R.drawable.trimgtpro
+    }
+
+    val trim3 = when (trimCode) {
+        'z' -> R.drawable.trimgtperfalt
+        else -> R.drawable.trimgtperf
+    }
+
+    val trim4 = when (trimCode) {
+        'x' -> R.drawable.trimgte4xalt
+        else -> R.drawable.trimgte4x
+    }
+
+    var trimExpand0 by remember { mutableStateOf(false) }
+    var trimExpand1 by remember { mutableStateOf(false) }
+    var trimExpand2 by remember { mutableStateOf(false) }
+    var trimExpand3 by remember { mutableStateOf(false) }
+    var trimExpand4 by remember { mutableStateOf(false) }
+
+    // ------------------------------------------------------------------------------------------
+
+
+    @Composable
+    fun trim0a() = when (trimExpand0) {
+        false ->
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .height(250.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+
+            ) {
+                Image(
+                    painter = painterResource(id = trim0),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .clickable {
+                            appViewModel.updateTrim('c')
+                        }
+                        .height(250.dp)
+                        .padding(5.dp)
+                        .width(300.dp)
+
+
+                )
+                //Spacer(modifier = Modifier.width(2.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.expandbtn),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .clickable {
+                            trimExpand0 = !trimExpand0
+                        }
+                        .height(160.dp)
+                        .width(70.dp)
+                        .padding(5.dp)
+
+                )
+            }
+
+        true ->
+            Image(
+                painter = painterResource(id = R.drawable.trimcoreex),
+                contentDescription = "",
+                modifier = Modifier
+                    .clickable {
+                        trimExpand0 = !trimExpand0
+                    }
+                    .height(950.dp)
+                    .fillMaxWidth()
+                    .padding(5.dp)
+            )
+
+    }
+
+    @Composable
+    fun trim0() = AnimatedContent(
+        targetState = trimExpand0,
+        transitionSpec = {
+            fadeIn(animationSpec = tween(150, 150)) with
+                    fadeOut(animationSpec = tween(150)) using
+                    SizeTransform { initialSize, targetSize ->
+                        keyframes {
+                            // Shrink vertically first.
+                            IntSize(initialSize.width, targetSize.height) at 150
+                            durationMillis = 300
+                        }
+
+                    }
+        }
+    ) {
+        trim0a()
+    }
+
+
+    // ------------------------------------------------------------------------------------------
+
+
+    @Composable
+    fun trim1a() = when (trimExpand1) {
+        false ->
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .height(250.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+
+            ) {
+                Image(
+                    painter = painterResource(id = trim1),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .clickable {
+                            appViewModel.updateTrim('p')
+                        }
+                        .height(250.dp)
+                        .padding(5.dp)
+                        .width(300.dp)
+
+
+                )
+                //Spacer(modifier = Modifier.width(2.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.expandbtn),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .clickable {
+                            trimExpand1 = !trimExpand1
+                        }
+                        .height(160.dp)
+                        .width(70.dp)
+                        .padding(5.dp)
+
+                )
+            }
+
+        true ->
+            Image(
+                painter = painterResource(id = R.drawable.trimprogex),
+                contentDescription = "",
+                modifier = Modifier
+                    .clickable {
+                        trimExpand1 = !trimExpand1
+                    }
+                    .height(1100.dp)
+                    .fillMaxWidth()
+                    .padding(5.dp)
+            )
+
+    }
+
+    @Composable
+    fun trim1() = AnimatedContent(
+        targetState = trimExpand1,
+        transitionSpec = {
+            fadeIn(animationSpec = tween(150, 150)) with
+                    fadeOut(animationSpec = tween(150)) using
+                    SizeTransform { initialSize, targetSize ->
+                        keyframes {
+                            // Shrink vertically first.
+                            IntSize(initialSize.width, targetSize.height) at 150
+                            durationMillis = 300
+                        }
+
+                    }
+        }
+    ) {
+        trim1a()
+    }
+
+
+    // ------------------------------------------------------------------------------------------
+
+
+    @Composable
+    fun trim2a() = when (trimExpand2) {
+        false ->
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .height(250.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+
+            ) {
+                Image(
+                    painter = painterResource(id = trim2),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .clickable {
+                            appViewModel.updateTrim('g')
+                        }
+                        .height(250.dp)
+                        .padding(5.dp)
+                        .width(300.dp)
+
+
+                )
+                //Spacer(modifier = Modifier.width(2.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.expandbtn),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .clickable {
+                            trimExpand2 = !trimExpand2
+                        }
+                        .height(160.dp)
+                        .width(70.dp)
+                        .padding(5.dp)
+
+                )
+            }
+
+        true ->
+            Image(
+                painter = painterResource(id = R.drawable.trimgtproex),
+                contentDescription = "",
+                modifier = Modifier
+                    .clickable {
+                        trimExpand2 = !trimExpand2
+                    }
+                    .height(1240.dp)
+                    .fillMaxWidth()
+                    .padding(5.dp)
+            )
+
+    }
+
+    @Composable
+    fun trim2() = AnimatedContent(
+        targetState = trimExpand2,
+        transitionSpec = {
+            fadeIn(animationSpec = tween(150, 150)) with
+                    fadeOut(animationSpec = tween(150)) using
+                    SizeTransform { initialSize, targetSize ->
+                        keyframes {
+                            // Shrink vertically first.
+                            IntSize(initialSize.width, targetSize.height) at 150
+                            durationMillis = 300
+                        }
+
+                    }
+        }
+    ) {
+        trim2a()
+    }
+
+
+    // ------------------------------------------------------------------------------------------
+
+
+    @Composable
+    fun trim3a() = when (trimExpand3) {
+        false ->
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .height(250.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+
+            ) {
+                Image(
+                    painter = painterResource(id = trim3),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .clickable {
+                            appViewModel.updateTrim('z')
+                        }
+                        .height(250.dp)
+                        .padding(5.dp)
+                        .width(300.dp)
+
+
+                )
+                //Spacer(modifier = Modifier.width(2.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.expandbtn),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .clickable {
+                            trimExpand3 = !trimExpand3
+                        }
+                        .height(160.dp)
+                        .width(70.dp)
+                        .padding(5.dp)
+
+                )
+            }
+
+        true ->
+            Image(
+                painter = painterResource(id = R.drawable.trimgtperfex),
+                contentDescription = "",
+                modifier = Modifier
+                    .clickable {
+                        trimExpand3 = !trimExpand3
+                    }
+                    .height(1400.dp)
+                    .fillMaxWidth()
+                    .padding(5.dp)
+            )
+
+    }
+
+    @Composable
+    fun trim3() = AnimatedContent(
+        targetState = trimExpand3,
+        transitionSpec = {
+            fadeIn(animationSpec = tween(150, 150)) with
+                    fadeOut(animationSpec = tween(150)) using
+                    SizeTransform { initialSize, targetSize ->
+                        keyframes {
+                            // Shrink vertically first.
+                            IntSize(initialSize.width, targetSize.height) at 150
+                            durationMillis = 300
+                        }
+
+                    }
+        }
+    ) {
+        trim3a()
+    }
+
+
+    // ------------------------------------------------------------------------------------------
+
+
+    @Composable
+    fun trim4a() = when (trimExpand4) {
+        false ->
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .height(250.dp)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+
+            ) {
+                Image(
+                    painter = painterResource(id = trim4),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .clickable {
+                            appViewModel.updateTrim('x')
+                        }
+                        .height(250.dp)
+                        .padding(5.dp)
+                        .width(300.dp)
+
+
+                )
+                //Spacer(modifier = Modifier.width(2.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.expandbtn),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .clickable {
+                            trimExpand4 = !trimExpand4
+                        }
+                        .height(160.dp)
+                        .width(70.dp)
+                        .padding(5.dp)
+
+                )
+            }
+
+        true ->
+            Image(
+                painter = painterResource(id = R.drawable.trimgte4xex),
+                contentDescription = "",
+                modifier = Modifier
+                    .clickable {
+                        trimExpand4 = !trimExpand4
+                    }
+                    .height(1500.dp)
+                    .fillMaxWidth()
+                    .padding(5.dp)
+            )
+
+    }
+
+    @Composable
+    fun trim4() = AnimatedContent(
+        targetState = trimExpand4,
+        transitionSpec = {
+            fadeIn(animationSpec = tween(150, 150)) with
+                    fadeOut(animationSpec = tween(150)) using
+                    SizeTransform { initialSize, targetSize ->
+                        keyframes {
+                            // Shrink vertically first.
+                            IntSize(initialSize.width, targetSize.height) at 150
+                            durationMillis = 300
+                        }
+
+                    }
+        }
+    ) {
+        trim4a()
+    }
+
 
     // PAINT -----------------------------------------------------------------------------------------------
 
@@ -487,7 +905,8 @@ fun AppDisplay(
     false ->
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.height(160.dp)
+            modifier = Modifier
+                .height(160.dp)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
 
@@ -558,7 +977,8 @@ fun AppDisplay(
         false ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.height(160.dp)
+                modifier = Modifier
+                    .height(160.dp)
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
 
@@ -627,7 +1047,8 @@ fun AppDisplay(
         false ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.height(160.dp)
+                modifier = Modifier
+                    .height(160.dp)
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
 
@@ -696,7 +1117,8 @@ fun AppDisplay(
         false ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.height(160.dp)
+                modifier = Modifier
+                    .height(160.dp)
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
 
@@ -764,7 +1186,8 @@ fun AppDisplay(
         false ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.height(160.dp)
+                modifier = Modifier
+                    .height(160.dp)
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
 
@@ -843,15 +1266,38 @@ fun AppDisplay(
     )
 
     @Composable
+    fun trimFunc(id: Int){
+        val trimList = listOf(trim0(), trim1(), trim2(), trim3(), trim4(), spacerS())
+        trimList[id]
+    }
+
+    @Composable
     fun paintFunc(id: Int){
-        val paintList = listOf(paint0(), paint1(), spacerS(), paint2(), paint3(), paint4(), paint5(), paint6(), paint7(), spacerS(), paint8(), paint9(), spacerS(), paint10(), spacerL())
+        val paintList = listOf(paint0(), paint1(), spacerS(), paint2(), paint3(), paint4(), paint5(), paint6(), paint7(), spacerS(), paint8(), paint9(), spacerS(), paint10())
         paintList[id]
     }
 
     @Composable
     fun wheelFunc(id: Int){
-        val wheelList = listOf(wheel0(), wheel1(), wheel2(), wheel3(), wheel4(), spacerL())
+        val wheelList = listOf(wheel0(), wheel1(), wheel2(), wheel3(), wheel4())
         wheelList[id]
+    }
+
+
+
+    @Composable
+    fun trimScroller(
+        modifier: Modifier = Modifier.fillMaxWidth()
+    ){
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ){
+            items(1){
+                    idx -> trimFunc(id = idx)
+            }
+        }
     }
 
     @Composable
@@ -863,7 +1309,7 @@ fun AppDisplay(
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ){
-            items(15){
+            items(1){
                 idx -> paintFunc(id = idx)
             }
         }
@@ -878,7 +1324,7 @@ fun AppDisplay(
                 .fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ){
-            items(6){
+            items(1){
                     idx -> wheelFunc(id = idx)
             }
         }
@@ -887,6 +1333,7 @@ fun AppDisplay(
 
     @Composable
     fun mainScroller() = when(iconId){
+        0 -> trimScroller(Modifier.fillMaxWidth())
         1 -> paintScroller(Modifier.fillMaxWidth())
         2 -> wheelScroller(Modifier.fillMaxWidth())
         else -> {}
@@ -926,6 +1373,7 @@ fun AppDisplay(
                     fontFamily = rratFontFamily,
                     fontWeight = FontWeight.W300,
                     fontSize = 12.sp,
+                    color = Color.Black
                     //letterSpacing = 0.5.sp
                 ),
                 textAlign = TextAlign.Center
@@ -937,6 +1385,7 @@ fun AppDisplay(
                     fontFamily = rratFontFamily,
                     fontWeight = FontWeight.W400,
                     fontSize = 18.sp,
+                    color = Color.Black
                     //letterSpacing = 0.5.sp
                 ),
                 textAlign = TextAlign.Center
@@ -952,6 +1401,7 @@ fun AppDisplay(
                 fontFamily = rratFontFamily,
                 fontWeight = FontWeight.W400,
                 fontSize = 10.sp,
+                color = Color.Black
                 //letterSpacing = 0.5.sp
             ),
             textAlign = TextAlign.Center
@@ -966,6 +1416,7 @@ fun AppDisplay(
                     fontFamily = rratFontFamily,
                     fontWeight = FontWeight.W200,
                     fontSize = 18.sp,
+                    color = Color.Black
                     //letterSpacing = 0.5.sp
                 ),
                 textAlign = TextAlign.Center
@@ -977,6 +1428,7 @@ fun AppDisplay(
                     fontFamily = rratFontFamily,
                     fontWeight = FontWeight.W200,
                     fontSize = 28.sp,
+                    color = Color.Black
                     //letterSpacing = 0.5.sp
                 ),
                 textAlign = TextAlign.Center
