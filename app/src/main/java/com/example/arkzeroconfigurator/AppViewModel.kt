@@ -21,7 +21,7 @@ class AppViewModel : ViewModel() {
     }
 
 
-    var trimId by mutableStateOf('x')
+    var trimId by mutableStateOf('g')
     fun updateTrim(id: Char){
         trimId = id
     }
@@ -31,9 +31,42 @@ class AppViewModel : ViewModel() {
         paintId = id
     }
 
-    var interiorId by mutableStateOf('b')
+    var interiorId by mutableStateOf('c')
     fun updateInterior(id: Char){
         interiorId  = id
+    }
+
+    /*
+    var options by mutableStateOf(arrayOf(false, false, false, false, false, false, false, false, false))
+
+    fun updateOption(id: Int){
+        options[id] = !options[id]
+    }
+
+     */
+
+    var opt0 by mutableStateOf(false)
+    var opt1 by mutableStateOf(false)
+    var opt2 by mutableStateOf(false)
+    var opt3 by mutableStateOf(false)
+    var opt4 by mutableStateOf(false)
+    var opt5 by mutableStateOf(false)
+    var opt6 by mutableStateOf(false)
+    var opt7 by mutableStateOf(false)
+    var opt8 by mutableStateOf(false)
+
+    fun updateOption(id: Int){
+        when(id){
+            0 -> {opt0 = !opt0}
+            1 -> {opt1 = !opt1}
+            2 -> {opt2 = !opt2}
+            3 -> {opt3 = !opt3}
+            4 -> {opt4 = !opt4}
+            5 -> {opt5 = !opt5}
+            6 -> {opt6 = !opt6}
+            7 -> {opt7 = !opt7}
+            8 -> {opt8 = !opt8}
+        }
     }
 
 

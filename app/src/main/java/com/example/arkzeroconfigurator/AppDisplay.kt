@@ -79,6 +79,19 @@ fun AppDisplay(
     val trimCode = appViewModel.trimId
     val colorCode = appViewModel.paintId
     val interiorCode = appViewModel.interiorId
+
+    val opt0 = appViewModel.opt0
+    val opt1 = appViewModel.opt1
+    val opt2 = appViewModel.opt2
+    val opt3 = appViewModel.opt3
+    val opt4 = appViewModel.opt4
+    val opt5 = appViewModel.opt5
+    val opt6 = appViewModel.opt6
+    val opt7 = appViewModel.opt7
+    val opt8 = appViewModel.opt8
+
+    var options = arrayOf(opt0, opt1, opt2, opt3, opt4, opt5, opt6, opt7, opt8)
+
     val wheelCode = when (trimCode) {
         'c' -> 'a'
         'p' -> 'b'
@@ -116,7 +129,13 @@ fun AppDisplay(
         else -> -1
     }
 
-    val price: Int = trimPrice + colorPrice + interiorPrice
+    val optionPriceArr = arrayOf(11900, 6750, 3800, 2400, 1200, 2500, 2000, 200, 160)
+    var optionPrice = 0
+    for (i in 0 until options.size){
+        if(options[i]){optionPrice += optionPriceArr[i]}
+    }
+
+    val price: Int = trimPrice + colorPrice + interiorPrice + optionPrice
 
     val trimName: String = when (trimCode) {
         'c' -> "Core"
@@ -1251,6 +1270,324 @@ fun AppDisplay(
     }
 
 
+
+    // INTERIOR -------------------------------------------------------------------------------------------------
+
+    val interior0 = when (interiorCode) {
+        'c' -> R.drawable.interiorcalt
+        else -> R.drawable.interiorc
+    }
+
+    val interior1 = when (interiorCode) {
+        'g' -> R.drawable.interiorgalt
+        else -> R.drawable.interiorg
+    }
+
+    val interior2 = when (interiorCode) {
+        'w' -> R.drawable.interiorwalt
+        else -> R.drawable.interiorw
+    }
+
+    val interior3 = when (interiorCode) {
+        't' -> R.drawable.interiortalt
+        else -> R.drawable.interiort
+    }
+
+    val interior4 = when (interiorCode) {
+        'r' -> R.drawable.interiorralt
+        else -> R.drawable.interiorr
+    }
+
+    val interior5 = when (interiorCode) {
+        'd' -> R.drawable.interiordalt
+        else -> R.drawable.interiord
+    }
+
+    val interior6 = when (interiorCode) {
+        'b' -> R.drawable.interiorbalt
+        else -> R.drawable.interiorb
+    }
+
+    val interior7 = when (interiorCode) {
+        'a' -> R.drawable.interioraalt
+        else -> R.drawable.interiora
+    }
+
+
+    @Composable
+    fun interior0() = Image(
+        painter = painterResource(id = interior0),
+        contentDescription = "",
+        modifier = Modifier
+            .clickable {
+                appViewModel.updateInterior('c')
+            }
+            .height(300.dp)
+            .padding(5.dp)
+            .width(370.dp)
+    )
+
+    @Composable
+    fun interior1() = Image(
+        painter = painterResource(id = interior1),
+        contentDescription = "",
+        modifier = Modifier
+            .clickable {
+                appViewModel.updateInterior('g')
+            }
+            .height(300.dp)
+            .padding(5.dp)
+            .width(370.dp)
+    )
+
+    @Composable
+    fun interior2() = Image(
+        painter = painterResource(id = interior2),
+        contentDescription = "",
+        modifier = Modifier
+            .clickable {
+                appViewModel.updateInterior('w')
+            }
+            .height(300.dp)
+            .padding(5.dp)
+            .width(370.dp)
+    )
+
+    @Composable
+    fun interior3() = Image(
+        painter = painterResource(id = interior3),
+        contentDescription = "",
+        modifier = Modifier
+            .clickable {
+                appViewModel.updateInterior('t')
+            }
+            .height(300.dp)
+            .padding(5.dp)
+            .width(370.dp)
+    )
+
+    @Composable
+    fun interior4() = Image(
+        painter = painterResource(id = interior4),
+        contentDescription = "",
+        modifier = Modifier
+            .clickable {
+                appViewModel.updateInterior('r')
+            }
+            .height(300.dp)
+            .padding(5.dp)
+            .width(370.dp)
+    )
+
+    @Composable
+    fun interior5() = Image(
+        painter = painterResource(id = interior5),
+        contentDescription = "",
+        modifier = Modifier
+            .clickable {
+                appViewModel.updateInterior('d')
+            }
+            .height(300.dp)
+            .padding(5.dp)
+            .width(370.dp)
+    )
+
+    @Composable
+    fun interior6() = Image(
+        painter = painterResource(id = interior6),
+        contentDescription = "",
+        modifier = Modifier
+            .clickable {
+                appViewModel.updateInterior('b')
+            }
+            .height(300.dp)
+            .padding(5.dp)
+            .width(370.dp)
+    )
+
+    @Composable
+    fun interior7() = Image(
+        painter = painterResource(id = interior7),
+        contentDescription = "",
+        modifier = Modifier
+            .clickable {
+                appViewModel.updateInterior('a')
+            }
+            .height(300.dp)
+            .padding(5.dp)
+            .width(370.dp)
+    )
+
+
+    // OPTIONS -----------------------------------------------------------------------------------------------------
+
+
+    val option0 = when(options[0]){
+        false -> R.drawable.option1
+        true -> R.drawable.option1alt
+    }
+
+    val option1 = when(options[1]){
+        false -> R.drawable.option2
+        true -> R.drawable.option2alt
+    }
+
+    val option2 = when(options[2]){
+        false -> R.drawable.option3
+        true -> R.drawable.option3alt
+    }
+
+    val option3 = when(options[3]){
+        false -> R.drawable.option4
+        true -> R.drawable.option4alt
+    }
+
+    val option4 = when(options[4]){
+        false -> R.drawable.option5
+        true -> R.drawable.option5alt
+    }
+
+    val option5 = when(options[5]){
+        false -> R.drawable.option6
+        true -> R.drawable.option6alt
+    }
+
+    val option6 = when(options[6]){
+        false -> R.drawable.option7
+        true -> R.drawable.option7alt
+    }
+
+    val option7 = when(options[7]){
+        false -> R.drawable.option8
+        true -> R.drawable.option8alt
+    }
+
+    val option8 = when(options[8]){
+        false -> R.drawable.option9
+        true -> R.drawable.option9alt
+    }
+
+
+    @Composable
+    fun option0() = Image(
+        painter = painterResource(id = option0),
+        contentDescription = "",
+        modifier = Modifier
+            .clickable {
+                // appViewModel.updateOption(0)
+                appViewModel.updateOption(0)
+            }
+            .height(300.dp)
+            .padding(5.dp)
+            .width(370.dp)
+    )
+
+    @Composable
+    fun option1() = Image(
+        painter = painterResource(id = option1),
+        contentDescription = "",
+        modifier = Modifier
+            .clickable {
+                appViewModel.updateOption(1)
+            }
+            .height(300.dp)
+            .padding(5.dp)
+            .width(370.dp)
+    )
+
+    @Composable
+    fun option2() = Image(
+        painter = painterResource(id = option2),
+        contentDescription = "",
+        modifier = Modifier
+            .clickable {
+                appViewModel.updateOption(2)
+            }
+            .height(200.dp)
+            .padding(5.dp)
+            .width(370.dp)
+    )
+
+    @Composable
+    fun option3() = Image(
+        painter = painterResource(id = option3),
+        contentDescription = "",
+        modifier = Modifier
+            .clickable {
+                appViewModel.updateOption(3)
+            }
+            .height(200.dp)
+            .padding(5.dp)
+            .width(370.dp)
+    )
+
+    @Composable
+    fun option4() = Image(
+        painter = painterResource(id = option4),
+        contentDescription = "",
+        modifier = Modifier
+            .clickable {
+                appViewModel.updateOption(4)
+            }
+            .height(200.dp)
+            .padding(5.dp)
+            .width(370.dp)
+    )
+
+    @Composable
+    fun option5() = Image(
+        painter = painterResource(id = option5),
+        contentDescription = "",
+        modifier = Modifier
+            .clickable {
+                appViewModel.updateOption(5)
+            }
+            .height(200.dp)
+            .padding(5.dp)
+            .width(370.dp)
+    )
+
+    @Composable
+    fun option6() = Image(
+        painter = painterResource(id = option6),
+        contentDescription = "",
+        modifier = Modifier
+            .clickable {
+                appViewModel.updateOption(6)
+            }
+            .height(200.dp)
+            .padding(5.dp)
+            .width(370.dp)
+    )
+
+    @Composable
+    fun option7() = Image(
+        painter = painterResource(id = option7),
+        contentDescription = "",
+        modifier = Modifier
+            .clickable {
+                appViewModel.updateOption(7)
+            }
+            .height(200.dp)
+            .padding(5.dp)
+            .width(370.dp)
+    )
+
+    @Composable
+    fun option8() = Image(
+        painter = painterResource(id = option8),
+        contentDescription = "",
+        modifier = Modifier
+            .clickable {
+                appViewModel.updateOption(8)
+            }
+            .height(200.dp)
+            .padding(5.dp)
+            .width(370.dp)
+    )
+
+
+
     @Composable
     fun spacerS() = Image(
         painter = painterResource(id = R.drawable.spacers),
@@ -1281,6 +1618,18 @@ fun AppDisplay(
     fun wheelFunc(id: Int){
         val wheelList = listOf(wheel0(), wheel1(), wheel2(), wheel3(), wheel4())
         wheelList[id]
+    }
+
+    @Composable
+    fun interiorFunc(id: Int){
+        val interiorList = listOf(interior0(), interior1(), interior2(), interior3(), interior4(), interior5(), interior6(), interior7())
+        interiorList[id]
+    }
+
+    @Composable
+    fun optionFunc(id: Int){
+        val optionList = listOf(option0(), option1(), option2(), option3(), option6(), option4(), option5(), option7(), option8())
+        optionList[id]
     }
 
 
@@ -1330,12 +1679,44 @@ fun AppDisplay(
         }
     }
 
+    @Composable
+    fun interiorScroller(
+        modifier: Modifier = Modifier.fillMaxWidth()
+    ){
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ){
+            items(1){
+                    idx -> interiorFunc(id = idx)
+            }
+        }
+    }
+
+    @Composable
+    fun optionScroller(
+        modifier: Modifier = Modifier.fillMaxWidth()
+    ){
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ){
+            items(1){
+                    idx -> optionFunc(id = idx)
+            }
+        }
+    }
+
 
     @Composable
     fun mainScroller() = when(iconId){
         0 -> trimScroller(Modifier.fillMaxWidth())
         1 -> paintScroller(Modifier.fillMaxWidth())
         2 -> wheelScroller(Modifier.fillMaxWidth())
+        3 -> interiorScroller(Modifier.fillMaxWidth())
+        4 -> optionScroller(Modifier.fillMaxWidth())
         else -> {}
     }
 
